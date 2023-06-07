@@ -1,0 +1,27 @@
+---
+- name: Install/Remove PF with tags
+  hosts: test
+  become: true
+
+  tasks:
+  - name: install ps
+    package:
+      name: postfix
+      state: present
+    tags:
+      - init
+
+  - name: started pf
+    service:
+      name: postfix
+      state: started
+      enabled: yes
+    tags:
+      - init
+
+  - name: Remove Postfix
+    package:
+      name: postfix
+      state: absent
+    tags:
+      - drop
